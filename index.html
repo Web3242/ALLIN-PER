@@ -1,4 +1,4 @@
-}<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -184,7 +184,7 @@
             return (
                 <div className="min-h-screen selection:bg-red-600 selection:text-white pb-20">
                     
-                    {/* BARRA DE NAVEGACIÓN - Modificada para Celulares */}
+                    {/* BARRA DE NAVEGACIÓN - En PC los links vuelven a la derecha */}
                     <nav className="sticky top-0 w-full z-50 bg-[#1A1A1A] text-white py-4 px-4 md:px-12 flex justify-between items-center border-b-4 border-black">
                         <div className="flex items-center space-x-3 md:space-x-4">
                             <img 
@@ -197,31 +197,33 @@
                             </div>
                         </div>
                         
-                        {/* Se ocultan links en móvil (hidden md:flex) para evitar choque */}
-                        <div className="hidden md:flex items-center space-x-12 uppercase font-black text-sm tracking-[0.2em]">
-                            <a href="#carta" className="hover:text-[#CE2029] transition-colors">La Carta</a>
-                            <a href="#visitanos" className="hover:text-[#CE2029] transition-colors">Visítanos</a>
-                        </div>
+                        <div className="flex items-center space-x-6 md:space-x-12">
+                            {/* Links ocultos en móvil, se muestran en PC a la derecha */}
+                            <div className="hidden md:flex items-center space-x-12 uppercase font-black text-sm tracking-[0.2em]">
+                                <a href="#carta" className="hover:text-[#CE2029] transition-colors">La Carta</a>
+                                <a href="#visitanos" className="hover:text-[#CE2029] transition-colors">Visítanos</a>
+                            </div>
 
-                        <button onClick={() => setIsCartOpen(true)} className="bg-[#CE2029] px-3 md:px-4 py-2 flex items-center space-x-1 md:space-x-2 rounded-sm transform -rotate-1 hover:rotate-0 transition-transform text-white text-center">
-                            <Icon name="ShoppingBag" size={18} />
-                            <span className="text-xs md:text-sm tracking-tighter font-black ml-1">S/ {cartTotal.toFixed(2)}</span>
-                        </button>
+                            <button onClick={() => setIsCartOpen(true)} className="bg-[#CE2029] px-3 md:px-4 py-2 flex items-center space-x-1 md:space-x-2 rounded-sm transform -rotate-1 hover:rotate-0 transition-transform text-white text-center">
+                                <Icon name="ShoppingBag" size={18} />
+                                <span className="text-sm tracking-tighter font-black ml-1">S/ {cartTotal.toFixed(2)}</span>
+                            </button>
+                        </div>
                     </nav>
 
-                    {/* SECCIÓN HERO - Texto Responsivo */}
-                    <section className="max-w-7xl mx-auto px-4 pt-12 md:pt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    {/* SECCIÓN HERO */}
+                    <section className="max-w-7xl mx-auto px-4 pt-12 md:pt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-black">
                         <div className="relative space-y-4 order-2 lg:order-1 text-center lg:text-left">
                             <div className="inline-block bg-[#CE2029] text-white px-4 py-1 font-black uppercase italic text-xs md:text-sm transform -rotate-1 mb-2">
                                 DESDE EL CORAZÓN DE COMAS 🇵🇪
                             </div>
 
-                            <h1 className="text-5xl sm:text-7xl md:text-[10rem] font-black uppercase italic leading-[0.9] md:leading-[0.85] tracking-normal text-black">
+                            <h1 className="text-5xl sm:text-7xl md:text-[10rem] font-black uppercase italic leading-[0.9] md:leading-[0.85] tracking-normal">
                                 LA <span className="text-[#CE2029]">REAL</span> <br/> SMASH<br/>HOUSE
                             </h1>
                             
                             <div className="max-w-md mx-auto lg:mx-0 pt-4">
-                                <p className="text-base md:text-xl font-bold uppercase leading-tight tracking-normal text-black">
+                                <p className="text-base md:text-xl font-bold uppercase leading-tight tracking-normal">
                                     Carne de verdad, pan artesanal y ese toque rebelde que solo encuentras en el Retablo. No somos fast food, somos comida real.
                                 </p>
                                 <div className="mt-8">
@@ -256,14 +258,14 @@
                         </div>
                     </section>
 
-                    {/* SECCIÓN DE LA CARTA - Reestructurada para evitar cortes de texto */}
+                    {/* SECCIÓN DE LA CARTA */}
                     <section id="carta" className="max-w-7xl mx-auto px-4 pt-20 md:pt-32 pb-20">
                         <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-8 text-black text-center md:text-left">
                             <div>
-                                <h2 className="text-5xl md:text-8xl font-black uppercase italic leading-none tracking-normal text-black">
+                                <h2 className="text-5xl md:text-8xl font-black uppercase italic leading-none tracking-normal">
                                     NUESTRA <span className="text-[#CE2029]">SELECCIÓN</span>
                                 </h2>
-                                <p className="font-handwriting text-xl md:text-2xl text-gray-600 mt-2 tracking-normal text-black">Pide una y entenderás el hype.</p>
+                                <p className="font-handwriting text-xl md:text-2xl text-gray-600 mt-2 tracking-normal">Pide una y entenderás el hype.</p>
                             </div>
                             <div className="flex bg-black p-1 rounded-sm w-full md:w-auto">
                                 {Object.keys(menuItems).map(cat => (
@@ -285,13 +287,14 @@
                                     className="bg-white p-6 md:p-12 hover:bg-[#CE2029] group transition-all cursor-pointer relative flex flex-col justify-between"
                                     onClick={() => addToCart(item)}
                                 >
-                                    <div className="relative">
+                                    <div className="flex flex-col">
+                                        {/* Tag siempre arriba sin cubrir el precio */}
                                         {item.note && (
-                                            <div className="md:absolute md:top-0 md:right-0 bg-yellow-400 border-2 border-black px-2 py-1 text-[10px] font-black uppercase transform md:rotate-2 text-black w-fit mb-4 md:mb-0">
+                                            <div className="bg-yellow-400 border-2 border-black px-2 py-1 text-[10px] font-black uppercase transform rotate-2 text-black w-fit mb-4">
                                                 {item.note}
                                             </div>
                                         )}
-                                        <div className="flex flex-col md:flex-row justify-between items-start mb-4 gap-2 md:gap-4">
+                                        <div className="flex flex-row justify-between items-start mb-4 gap-4 text-black">
                                             <h3 className="text-3xl md:text-4xl font-black uppercase italic tracking-normal leading-tight group-hover:text-white">
                                                 {item.name}
                                             </h3>
@@ -310,13 +313,13 @@
                         </div>
                     </section>
 
-                    {/* SECCIÓN DE UBICACIÓN Y COBERTURA - Mejorada para Celular */}
-                    <section id="visitanos" className="max-w-7xl mx-auto px-4 py-10 md:py-20">
-                        <div className="bg-[#1A1A1A] text-white grid grid-cols-1 md:grid-cols-2 border-4 md:border-8 border-black overflow-hidden relative">
+                    {/* SECCIÓN DE UBICACIÓN Y COBERTURA */}
+                    <section id="visitanos" className="max-w-7xl mx-auto px-4 py-10 md:py-20 text-white">
+                        <div className="bg-[#1A1A1A] grid grid-cols-1 md:grid-cols-2 border-4 md:border-8 border-black overflow-hidden relative">
                             <div className="absolute top-0 right-0 w-32 h-32 opacity-10 pointer-events-none bg-dots"></div>
                             
-                            <div className="p-8 md:p-12 space-y-8 flex flex-col justify-center relative z-10">
-                                <h3 className="text-4xl md:text-6xl font-black uppercase italic tracking-normal leading-none text-white">
+                            <div className="p-8 md:p-12 space-y-8 flex flex-col justify-center relative z-10 text-white">
+                                <h3 className="text-4xl md:text-6xl font-black uppercase italic tracking-normal leading-none">
                                     ENCUÉNTRANOS<br/><span className="text-[#CE2029]">EN EL BARRIO</span>
                                 </h3>
                                 
@@ -324,7 +327,7 @@
                                     <div className="flex items-start space-x-4">
                                         <Icon name="MapPin" size={28} className="text-[#CE2029] shrink-0" />
                                         <div>
-                                            <p className="font-black text-lg md:text-xl uppercase italic text-white tracking-normal">Av. Retablo 191</p>
+                                            <p className="font-black text-lg md:text-xl uppercase italic tracking-normal">Av. Retablo 191</p>
                                             <p className="font-bold opacity-60 uppercase text-[10px] md:text-xs tracking-widest">El Retablo, Comas - Lima</p>
                                         </div>
                                     </div>
@@ -332,7 +335,7 @@
                                     <div className="flex items-start space-x-4">
                                         <Icon name="Navigation" size={28} className="text-[#CE2029] shrink-0" />
                                         <div>
-                                            <p className="font-black text-lg md:text-xl uppercase italic text-white tracking-normal leading-none">Horarios</p>
+                                            <p className="font-black text-lg md:text-xl uppercase italic tracking-normal leading-none">Horarios</p>
                                             <p className="font-bold opacity-60 uppercase text-[10px] md:text-xs tracking-widest text-white/80 leading-relaxed">
                                                 Lunes a Miércoles y Viernes a Domingo de 6:30 PM a 11:00 PM
                                             </p>
@@ -342,7 +345,7 @@
                                     <div className="flex items-start space-x-4 border-t border-white/10 pt-4">
                                         <Icon name="Truck" size={28} className="text-[#CE2029] shrink-0" />
                                         <div>
-                                            <p className="font-black text-lg md:text-xl uppercase italic text-white tracking-normal leading-none">COBERTURA DE ENVÍO</p>
+                                            <p className="font-black text-xl uppercase italic tracking-normal leading-none">COBERTURA DE ENVÍO</p>
                                             <p className="font-bold opacity-60 uppercase text-[10px] md:text-xs tracking-widest text-white/80">COMAS • LOS OLIVOS • CARABAYLLO</p>
                                         </div>
                                     </div>
@@ -383,7 +386,7 @@
                                             href={googleMapsUrl}
                                             target="_blank" 
                                             rel="noopener noreferrer"
-                                            className="inline-block bg-white text-black px-8 md:px-12 py-4 md:py-5 font-black uppercase italic text-xl md:text-2xl hover:scale-110 transition-transform shadow-[8px_8px_0_#1A1A1A] md:shadow-[10px_10px_0_#1A1A1A] border-2 md:border-4 border-black"
+                                            className="inline-block bg-white text-black px-8 md:px-12 py-4 md:py-5 font-black uppercase italic text-xl md:text-2xl hover:scale-110 transition-transform shadow-[10px_10px_0_#1A1A1A] md:shadow-[10px_10px_0_#1A1A1A] border-2 md:border-4 border-black"
                                         >
                                             ABRIR EN MAPS
                                         </a>
@@ -393,13 +396,13 @@
                         </div>
                     </section>
 
-                    {/* PANEL DEL CARRITO - Mensaje de confirmación dinámico */}
+                    {/* PANEL DEL CARRITO */}
                     {isCartOpen && (
                         <div className="fixed inset-0 z-[100] flex justify-end">
                             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsCartOpen(false)}></div>
                             <div className="relative w-full max-w-lg bg-white h-full flex flex-col border-l-4 md:border-l-8 border-black">
                                 <div className="p-6 md:p-8 border-b-4 md:border-b-8 border-black bg-black text-white flex justify-between items-center">
-                                    <h2 className="text-2xl md:text-4xl font-black italic uppercase tracking-normal text-white">TU CUENTA<span className="text-[#CE2029]">.</span></h2>
+                                    <h2 className="text-2xl md:text-4xl font-black italic uppercase tracking-normal">TU CUENTA<span className="text-[#CE2029]">.</span></h2>
                                     <button onClick={() => setIsCartOpen(false)} className="hover:rotate-90 transition-transform text-white">
                                         <Icon name="X" size={28} />
                                     </button>
@@ -408,12 +411,12 @@
                                 <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 text-black" style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px)', backgroundSize: '100% 2rem' }}>
                                     {cart.length === 0 ? (
                                         <div className="h-full flex flex-col items-center justify-center opacity-20 text-center">
-                                            <span className="text-6xl md:text-8xl mb-4 text-black font-black italic">🍟</span>
-                                            <p className="text-xl md:text-2xl font-black uppercase italic tracking-widest text-black">Sin nada por ahora...</p>
+                                            <span className="text-6xl md:text-8xl mb-4 text-black font-black italic font-black">🍟</span>
+                                            <p className="text-xl md:text-2xl font-black uppercase italic tracking-widest">Sin nada por ahora...</p>
                                         </div>
                                     ) : (
                                         cart.map(item => (
-                                            <div key={item.id} className="flex justify-between items-center border-b-2 border-dashed border-black pb-4">
+                                            <div key={item.id} className="flex justify-between items-center border-b-2 border-dashed border-black pb-4 text-black">
                                                 <div className="flex-1 pr-4">
                                                     <h4 className="text-lg md:text-xl font-black uppercase italic tracking-normal leading-none">{item.name}</h4>
                                                     <p className="font-bold text-[10px] uppercase opacity-50 mt-1">S/ {item.price.toFixed(2)} c/u</p>
@@ -433,10 +436,10 @@
 
                                 {cartTotal > 0 && (
                                     <div className="p-6 md:p-8 border-t-4 md:border-t-8 border-black bg-[#F5E6CA]">
-                                        <div className="flex justify-between items-end mb-6">
+                                        <div className="flex justify-between items-end mb-6 text-black">
                                             <div>
                                                 <p className="font-black uppercase text-[10px] tracking-widest opacity-60">Subtotal del pedido</p>
-                                                <span className="text-3xl md:text-5xl font-black italic tracking-normal text-black">S/ {cartTotal.toFixed(2)}</span>
+                                                <span className="text-3xl md:text-5xl font-black italic tracking-normal">S/ {cartTotal.toFixed(2)}</span>
                                             </div>
                                             <Icon name="Flame" size={32} className="text-[#CE2029] fill-current" />
                                         </div>
